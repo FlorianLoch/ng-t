@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "description": "AngularJS directive for inserting translateble texts",
   "main": "ng-t.js",
+  "devDependencies": {
+  	"karma": "~0.10.9"
+  },
   "scripts": {
     "test": "./node_modules/.bin/karma start --single-run --browsers PhantomJS"
   },
