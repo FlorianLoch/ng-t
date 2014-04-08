@@ -1,0 +1,1 @@
+angular.module('dict', ['ng-t']).config(['$tProvider', function($tProvider) {var map = JSON.parse('{"de-de":{"app":"Anwendung","os":"Betriebssystem"},"en-en":{"app":"application","os":"operating system"}}');$tProvider.addPhraseMap(map);}]);

@@ -3,8 +3,9 @@
 	<head>
 		<script type="text/javascript" src="../bower_components/angular/angular.js"></script>
 		<script type="text/javascript" src="../ng-t.js"></script>
+		<script type="text/javascript" src="dict.js"></script>
 		<script type="text/javascript">
-			angular.module("demoApp", ["ng-t"]).run(["$t", "$location", function ($t, $location) {
+			angular.module("demoApp", ["ng-t", "dict"]).run(["$t", "$location", function ($t, $location) {
 				console.log(location.search.substr(6));
 				console.log($location.search());
 
@@ -21,7 +22,7 @@
 					}
 				};
 
-				$t.setPhraseMap(phrases);
+				$t.addPhraseMap(phrases);
 			}]).controller("mainCntrl", ["$scope", "$t", function ($scope, $t) {
 				$scope.switchToEnglish = function () {
 					$t.setCurrentLanguage("en-en");
@@ -36,7 +37,8 @@
 		<t>fill_in_user</t><br><input type="text"><br>
 		<!--<a href="index.html?lang=de-de">Deutsch</a>
 		<a href="index.html?lang=en-en">English</a>-->
-		This text is permanently in German: <t l="de-de">german</t>
+		This text is permanently in German: <t l="de-de">german</t><br>
+		OS means <t>os</t>
 		<button ng-click="switchToEnglish();">To English</button>
 		<button ng-click="switchToGerman();">To German</button>
 	</body>
