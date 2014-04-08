@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script type="text/javascript" src="../bower_components/angular/angular.js"></script>
+		<script type="text/javascript" src="../ng-t.js"></script>
+		<script type="text/javascript">
+			angular.module("demoApp", ["ng-t"]).run(["$t", "$location", function ($t, $location) {
+				console.log(location.search.substr(6));
+				console.log($location.search());
+
+				$t.setCurrentLanguage(location.search.substr(6));
+
+				var phrases = {
+					"de-de": {
+						"app": "Anwendung"
+					},
+					"en-en": {
+						"app": "application"
+					}
+				};
+
+				$t.setPhraseMap(phrases);
+			}]).controller("mainCntrl", ["$scope", "$t", function ($scope, $t) {
+				$scope.t = $t.get;
+				$scope.switchToEnglish = function () {
+					$t.setCurrentLanguage("en-en");
+				};
+				$scope.switchToGerman = function () {
+					$t.setCurrentLanguage("de-de");
+				};				
+			}]);
+		</script>
+	</head>
+	<body ng-app="demoApp" ng-controller="mainCntrl">
+		<p>This a a little <t>Test</t> for my <t>app</t> {{t("app")}}</p>
+		<a href="index.html?lang=de-de">Deutsch</a>
+		<a href="index.html?lang=en-en">English</a>
+		<button ng-click="switchToEnglish();">To English</button>
+		<button ng-click="switchToGerman();">To German</button>
+	</body>
+</html>

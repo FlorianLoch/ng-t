@@ -1,0 +1,11 @@
+{
+  "name": "ng-t",
+  "version": "0.0.0",
+  "description": "AngularJS directive for inserting translateble texts",
+  "main": "ng-t.js",
+  "scripts": {
+    "test": "karma start karma.config.js"
+  },
+  "author": "Florian Loch (florian.loch@gmail.com)",
+  "license": "MIT"
+}
