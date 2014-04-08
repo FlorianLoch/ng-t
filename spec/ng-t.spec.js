@@ -5,6 +5,9 @@ angular.module("dict", ["ng-t"]).config(["$tProvider", function ($tProvider) {
 		},
 		"en-en": {
 			"os": "operating system"
+		},
+		"it-it": {
+			"os": "sistema operativo"
 		}
 	};
 
@@ -150,5 +153,15 @@ describe("This suite tests whether ng-t works or not", function () {
 		var exp = $interpolate('{{t("os", "de-de")}}'); //
 
 		expect(exp(scope)).toEqual("Betriebssystem");
+	});			
+
+	it("should load another module and resolve to one of the phrases contained only in this module. The phrase is content of an 'new' language", function () {
+		scope.t = $tProvider.get;
+
+		$tProvider.setCurrentLanguage("it-it");
+
+		var exp = $interpolate('{{t("os")}}'); //
+
+		expect(exp(scope)).toEqual("sistema operativo");
 	});				
 });
