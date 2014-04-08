@@ -8,7 +8,7 @@ var separator = (process.argv[5] || ";");
 if (!inputFile || !outputFile || !moduleName) {
 	console.error("It seems there is something wrong with the given parameters.");
 	console.error("Schema: node csv2module <INPUT_FILE> <OUTPUT_FILE> <MODULE_NAME> [<SEPARATOR>]");
-	console.error("Paths are relative from current position.");
+	console.error("Paths are seen as relative from current directory.");
 	process.exit(1);
 }
 
@@ -35,12 +35,15 @@ if (lines.length > 1) {
 
 	var module = "angular.module('" + moduleName + "', ['ng-t']).config(['$tProvider', function($tProvider) {"
 	module += "var map = JSON.parse('" + json + "');";
-	module += "$tProvider.addPhraseMap(map);"
-	module += "}]);"
+	module += "$tProvider.addPhraseMap(map);";
+	module += "}]);";
 
 	fs.writeFileSync(outputFile, module);
 
 	console.log("The module has been written to your file system.");
+	console.log("You can now use the module by loading it into your application (via 'script' tag) and setting a dependency for it in one of your existing modules.");
+	console.log("Registering of phrases will be done automatically.");
+	process.exit(0);
 }
 else {
 	console.error("Your csv seems to contains just one line - this is not enough. There needs to be one headline and at least one content-row.");
