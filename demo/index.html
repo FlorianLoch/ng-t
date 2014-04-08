@@ -8,20 +8,21 @@
 				console.log(location.search.substr(6));
 				console.log($location.search());
 
+				$t.activateBindMode();
 				$t.setCurrentLanguage(location.search.substr(6));
 
 				var phrases = {
 					"de-de": {
-						"app": "Anwendung"
+						"fill_in_user": "Bitte geben Sie ihren Benutzernamen an",
+						"german": "Deutsch"
 					},
 					"en-en": {
-						"app": "application"
+						"fill_in_user": "Please fill in username"
 					}
 				};
 
 				$t.setPhraseMap(phrases);
 			}]).controller("mainCntrl", ["$scope", "$t", function ($scope, $t) {
-				$scope.t = $t.get;
 				$scope.switchToEnglish = function () {
 					$t.setCurrentLanguage("en-en");
 				};
@@ -32,9 +33,10 @@
 		</script>
 	</head>
 	<body ng-app="demoApp" ng-controller="mainCntrl">
-		<p>This a a little <t>Test</t> for my <t>app</t> {{t("app")}}</p>
-		<a href="index.html?lang=de-de">Deutsch</a>
-		<a href="index.html?lang=en-en">English</a>
+		<t>fill_in_user</t><br><input type="text"><br>
+		<!--<a href="index.html?lang=de-de">Deutsch</a>
+		<a href="index.html?lang=en-en">English</a>-->
+		This text is permanently in German: <t l="de-de">german</t>
 		<button ng-click="switchToEnglish();">To English</button>
 		<button ng-click="switchToGerman();">To German</button>
 	</body>

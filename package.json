@@ -4,7 +4,7 @@
   "description": "AngularJS directive for inserting translateble texts",
   "main": "ng-t.js",
   "scripts": {
-    "test": "karma start karma.config.js"
+    "test": "./node_modules/.bin/karma start --single-run --browsers PhantomJS"
   },
   "author": "Florian Loch (florian.loch@gmail.com)",
   "license": "MIT"
