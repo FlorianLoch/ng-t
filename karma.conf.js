@@ -2,6 +2,7 @@
 // Generated on Mon Apr 07 2014 23:01:34 GMT+0200 (Mitteleuropäische Sommerzeit)
 
 module.exports = function(config) {
+
   config.set({
 
     // base path, that will be used to resolve files and exclude
@@ -16,7 +17,7 @@ module.exports = function(config) {
     files: [
       'bower_components/angular/angular.js',
       'bower_components/angular-mocks/angular-mocks.js',
-      'ng-t.js',
+      (process.argv[3] == "--min") ? 'dist/ng-t.min.js' : "ng-t.js",
       'spec/*.spec.js'
     ],
 
