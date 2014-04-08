@@ -60,6 +60,25 @@ angular.module("ng-t").provider("$t", function () {
 		map = phrases_o;
 	};
 
+	this.addPhraseMap = function (phrases_o) {
+		if (typeof phrases_o != "object") return false;
+
+		for (var lang in phrases_o) {
+			if (!(map.hasOwnProperty(lang))) {
+				map[lang] = {};
+			}
+			for (var id in phrases_o[lang]) {
+				map[lang][id] = phrases_o[lang][id];
+			}
+		}
+
+		return true;
+	};
+
+	this.getPhraseMap = function () {
+		return angular.copy(map);
+	}
+
 	this.get = function (identifier, lang_override) {
 		var lang = currLang;
 		if (lang_override && map.hasOwnProperty(lang_override)) {

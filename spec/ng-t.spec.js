@@ -1,8 +1,22 @@
+angular.module("dict", ["ng-t"]).config(["$tProvider", function ($tProvider) {
+	var map = {
+		"de-de": {
+			"os": "Betriebssystem"
+		},
+		"en-en": {
+			"os": "operating system"
+		}
+	};
+
+	$tProvider.addPhraseMap(map);
+}]);
+
 describe("This suite tests whether ng-t works or not", function () {
 	var element, scope, $tProvider, $compile, $interpolate;
- 
+
 	beforeEach(function () {
-		module('ng-t')
+		module('ng-t');
+		module("dict");
 	});
  
 	beforeEach(inject(function($rootScope, _$compile_, _$t_, _$interpolate_) {
@@ -21,7 +35,7 @@ describe("This suite tests whether ng-t works or not", function () {
 		$interpolate = _$interpolate_;
 
 		$tProvider.activeTestableMode();
-		$tProvider.setPhraseMap(map);
+		$tProvider.addPhraseMap(map);
 	}));
 
 	it("should lookup identifier and and fetch English phrase (set default)", function () {
@@ -128,5 +142,13 @@ describe("This suite tests whether ng-t works or not", function () {
 		var exp = $interpolate('{{t("app", "de-de")}}'); //
 
 		expect(exp(scope)).toEqual("Anwendung");
-	});			
+	});		
+
+	it("should load another module and resolve to one of the phrases contained only in this module", function () {
+		scope.t = $tProvider.get;
+
+		var exp = $interpolate('{{t("os", "de-de")}}'); //
+
+		expect(exp(scope)).toEqual("Betriebssystem");
+	});				
 });
