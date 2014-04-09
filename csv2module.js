@@ -34,7 +34,7 @@ if (lines.length > 1) {
 	var json = JSON.stringify(o);
 
 	var module = "angular.module('" + moduleName + "', ['ng-t']).config(['$tProvider', function($tProvider) {"
-	module += "var map = JSON.parse('" + json + "');";
+	module += "var map = " + json + ";";
 	module += "$tProvider.addPhraseMap(map);";
 	module += "}]);";
 
