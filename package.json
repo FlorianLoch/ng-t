@@ -4,11 +4,13 @@
   "description": "AngularJS directive for inserting translateble texts",
   "main": "ng-t.js",
   "devDependencies": {
-    "karma": "~0.10.9",
+    "karma": "~0.12.6",
     "grunt-cli": "~0.1.13",
     "grunt": "~0.4.4",
     "grunt-contrib-uglify": "~0.4.0",
-    "bower": "~1.3.2"
+    "bower": "~1.3.2",
+    "karma-coverage": "~0.2.1",
+    "karma-coveralls": "~0.1.4"
   },
   "scripts": {
     "test": "./node_modules/.bin/karma start --min --single-run --browsers PhantomJS,Firefox && ./node_modules/.bin/karma start --single-run --browsers PhantomJS,Firefox"
