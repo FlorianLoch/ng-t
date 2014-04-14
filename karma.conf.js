@@ -2,7 +2,6 @@
 // Generated on Mon Apr 07 2014 23:01:34 GMT+0200 (Mitteleuropäische Sommerzeit)
 
 module.exports = function(config) {
-
   config.set({
 
     // base path, that will be used to resolve files and exclude
@@ -30,7 +29,7 @@ module.exports = function(config) {
 
  // test results reporter to use
     // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
-    reporters: ['progress', "coverage", "coveralls"],
+    reporters: (process.argv[3] == "-c") ? ["progress", "coverage", "coveralls"] : ["progress"],
 
     preprocessors: {
       // source files, that you wanna generate coverage for
