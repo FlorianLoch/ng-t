@@ -1,14 +1,13 @@
 {
   "name": "ng-t",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "authors": [
     "Florian Loch <Florian.Loch@gmail.com>"
   ],
-  "description": "AngularJS directive for inserting translateble texts",
+  "description": "AngularJS directive for inserting translatbabole texts",
   "main": "ng-t.js",
   "license": "MIT",
   "homepage": "fdloch.net",
-  "private": true,
   "ignore": [
     "**/.*",
     "node_modules",

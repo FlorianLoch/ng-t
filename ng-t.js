@@ -18,9 +18,11 @@ angular.module("ng-t", []).directive("t", ["$t", "$rootScope", function ($t, $ro
 				else elem.text("{{t('" + identifier + "', '" + overrideLang + "')}}");
 			}
 			else {
-				elem.replaceWith($t.get(identifier, overrideLang)); 	//This way the <t></t> are removed completely, but this happens by not manipulating the original dom element.
-			}									  		//The new one cannot be accessed in tests		
-		}												//Because of this a switch has been implemented. Calling $t.activeTestableMode() sets directive in test-friendly mode
+				var newElem = $t.get(identifier, overrideLang); 	//This way the <t></t> are removed completely, but this happens by not manipulating the original dom element.
+				$rootScope.__lastReplacedTElement = newElem;			//The new one cannot be accessed in tests
+				elem.replaceWith(newElem);			//Because of this a switch has been implemented. Calling $t.activeTestableMode() sets directive in test-friendly mode
+			}									  				
+		}												
 	}
 
 	return {
@@ -30,7 +32,7 @@ angular.module("ng-t", []).directive("t", ["$t", "$rootScope", function ($t, $ro
 	};
 }]);
 
-angular.module("ng-t").provider("$t", function () {
+angular.module("ng-t").provider("$t", ["$injector", function ($injector) {
 	var self = this;
 	window.t = self;
 	var currLang = "en-en";
@@ -85,28 +87,38 @@ angular.module("ng-t").provider("$t", function () {
 			lang = lang_override;
 		}
 
+		var ret;
+
 		if (map.hasOwnProperty(lang)) {
 			if (map[lang].hasOwnProperty(identifier)) {
-				return map[lang][identifier];
+				ret = map[lang][identifier];
 			} 
-			else if (map[defLang].hasOwnProperty(identifier)) {
-				return map[defLang][identifier];
+			else if (map.hasOwnProperty(defLang) && map[defLang].hasOwnProperty(identifier)) {
+				ret = map[defLang][identifier];
 			}
 			else {
-				return identifier;
+				ret = identifier;
 			}
 		}
 		else if (map.hasOwnProperty(defLang)) {
 			if (map[defLang].hasOwnProperty(identifier)) {
-				return map[defLang][identifier];
+				ret = map[defLang][identifier];
 			}
 			else {
-				return identifier;
+				ret = identifier;
 			}
 		}
 		else {
-			return identifier;
+			ret = identifier;
 		}
+
+		if (typeof ret == "function") {
+			return $injector.invoke(ret);
+		}
+		if (angular.isArray(ret)) {
+			return $injector.invoke(ret);
+		}
+		return ret;
 	};
 
 	this.isTestableMode = function () {
@@ -115,6 +127,10 @@ angular.module("ng-t").provider("$t", function () {
 
 	this.activeTestableMode = function () {
 		testableMode = true;
+	};
+
+	this.deactivateTestableMode = function () {
+		testableMode = false;
 	};
 
 	this.isBindMode = function () {
@@ -128,7 +144,7 @@ angular.module("ng-t").provider("$t", function () {
 	this.$get = function () {
 		return self;
 	};
-});
+}]);
 
 angular.module("ng-t").config(["$tProvider", function ($tProvider) {
 	//$tProvider.activeTestableMode();

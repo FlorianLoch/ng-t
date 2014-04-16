@@ -18,6 +18,7 @@ describe("This suite tests whether ng-t works or not", function () {
 	var element, scope, $tProvider, $compile, $interpolate;
 
 	beforeEach(function () {
+		module("ng");
 		module('ng-t');
 		module("dict");
 	});
@@ -163,5 +164,102 @@ describe("This suite tests whether ng-t works or not", function () {
 		var exp = $interpolate('{{t("os")}}'); //
 
 		expect(exp(scope)).toEqual("sistema operativo");
-	});				
+	});			
+
+	//TESTS OF UNCRITICAL PARTS OF APPLICATION
+
+	it("should return an equal phrase map", function () {
+		var testMap = {
+			"de-de": {
+				"os": "Betriebssystem",
+				"app": "Anwendung"
+			},
+			"en-en": {
+				"os": "operating system",
+				"app": "application"
+			},
+			"it-it": {
+				"os": "sistema operativo"
+			}
+		};
+
+		var actualMap = $tProvider.getPhraseMap();
+
+		expect(angular.equals(testMap, actualMap)).toBe(true);
+	});
+
+	it("should return set default language", function () {
+		$tProvider.setDefaultLanguage("foo-bar");
+
+		expect($tProvider.getDefaultLanguage()).toEqual("foo-bar");
+	});
+
+	it("should return set current language", function () {
+		$tProvider.setCurrentLanguage("foo-bar");
+
+		expect($tProvider.getCurrentLanguage()).toEqual("foo-bar");
+	});
+
+	it("should return false when trying to add something different to an object to the phrase map", function () {
+		expect($tProvider.addPhraseMap("foobar")).toEqual(false);
+	});	
+
+	it("bind-mode should be deactivated by default", function () {
+		expect($tProvider.isBindMode()).toBe(false);
+	});
+
+	it("should return identifier when requesting a word which doesn't exist in currentLanguage and not in default language AND current Language does not exist", function () {
+		$tProvider.setCurrentLanguage("foo");
+
+		expect($tProvider.get("foo-bar")).toEqual("foo-bar");
+	});
+
+	it("should return identifier when requesting a word AND current AND default language do not exist", function () {
+		$tProvider.setCurrentLanguage("foo");
+		$tProvider.setDefaultLanguage("bar");
+
+		expect($tProvider.get("foo-bar")).toEqual("foo-bar");
+	});	
+
+	it("should return an interpolate-expression for the given identifier when not in testingMode (with and without override lang)", function () {
+		$tProvider.deactivateTestableMode();
+		$tProvider.activateBindMode();
+
+		element = angular.element('<t>app</t>');
+		element2 = angular.element('<t lang="de-de">app</t>');
+
+		$compile(element);
+		$compile(element2);
+
+		expect(element.html()).toEqual("{{t('app')}}");
+		expect(element2.html()).toEqual("{{t('app', 'de-de')}}");
+	});
+
+	it("should replace element (not only its content) when not in testing mode and not in binding mode", function () {
+		$tProvider.deactivateTestableMode();
+
+		element = angular.element('<t lang="de-de">app</t>');
+
+		$compile(element);
+
+		expect(scope.__lastReplacedTElement).toEqual("Anwendung");
+	});
+
+	it("should be possible to add a function as a value for an identifier and get the returning value when resolving this identifier", function () {
+		var map = {
+			"de-de": {
+				"sinn": ["$tProvider", function ($rootScope) {
+					$rootScope.sinn = "1337";
+					return (21 * 2).toString();
+				}]
+			}
+		};
+
+		$tProvider.setCurrentLanguage("de-de");
+		$tProvider.setPhraseMap(map);
+
+		expect($tProvider.get("sinn")).toEqual("42");
+		expect($tProvider.sinn).toEqual("1337");
+	});
+
 });
