@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/FlorianLoch/ng-t.svg?branch=master)](https://travis-ci.org/FlorianLoch/ng-t)
+[ ![Codeship Status for FlorianLoch/ng-t](https://www.codeship.io/projects/0ef84ab0-af9e-0131-89e1-323ab73a37ca/status?branch=master)](https://www.codeship.io/projects/19803)
 [![Code Coverage](https://coveralls.io/repos/FlorianLoch/ng-t/badge.png)](https://coveralls.io/r/FlorianLoch/ng-t)
 [![devDependency Status](https://david-dm.org/FlorianLoch/ng-t/dev-status.svg)](https://david-dm.org/FlorianLoch/ng-t#info=devDependencies)
 
