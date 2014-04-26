@@ -14,7 +14,7 @@
   },
   "scripts": {
     "postinstall": "bower install",
-    "test": "./node_modules/.bin/karma start --single-run --browsers PhantomJS,Firefox && ./node_modules/.bin/karma start --min --single-run --browsers PhantomJS,Firefox"
+    "test": "./node_modules/.bin/karma start --single-run --browsers PhantomJS,Firefox,Chrome && ./node_modules/.bin/karma start --min --single-run --browsers PhantomJS,Firefox"
   },
   "author": "Florian Loch (florian.loch@gmail.com)",
   "license": "MIT"
