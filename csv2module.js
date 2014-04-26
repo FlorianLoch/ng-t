@@ -20,12 +20,14 @@ if (lines.length > 1) {
 	var o = {};
 
 	var langs = splitValues(lines[0]);
-	for (var i = 1; i < langs.length; i++) {
+	for (var i = 1; i < langs.length; i++) { //starts by 1 because first field has is part of identifier column and therefore must be empty in the first row
 		o[langs[i]] = {};
 	}
 
-	for (var i = 1; i < lines.length; i++) {
-		var vals = splitValues(lines[i]);
+	for (var i = 1; i < lines.length; i++) { //starts by 1 because first row contains just language-id and no phrase identifiers
+		if (lines[i].indexOf(";") == 0 || lines[i].indexOf("#") == 0) continue;
+
+		var vals = splitValues(lines[i]); //starts by 1 because first column contains the identifier for the phrase
 		for (var j = 1; j < vals.length; j++) {
 			o[langs[j]][vals[0]] = vals[j];
 		}
