@@ -1,6 +1,6 @@
 {
   "name": "ng-t",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "AngularJS directive for inserting translateble texts",
   "main": "ng-t.js",
   "devDependencies": {
