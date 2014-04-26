@@ -112,7 +112,7 @@ angular.module("ng-t").provider("$t", ["$injector", function ($injector) {
             ret = identifier;
         }
 
-        if (typeof ret == "function") {
+        if (typeof ret === "function") {
             return $injector.invoke(ret);
         }
         if (angular.isArray(ret)) {

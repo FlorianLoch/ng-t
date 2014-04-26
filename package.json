@@ -4,7 +4,7 @@
   "description": "AngularJS directive for inserting translateble texts",
   "main": "ng-t.js",
   "devDependencies": {
-    "karma": "~0.10.9",
+    "karma": "~0.12.10",
     "grunt-cli": "~0.1.13",
     "grunt": "~0.4.4",
     "grunt-contrib-uglify": "~0.4.0",
@@ -14,7 +14,8 @@
   },
   "scripts": {
     "postinstall": "bower install",
-    "test": "./node_modules/.bin/karma start --single-run --browsers PhantomJS,Firefox,Chrome && ./node_modules/.bin/karma start --min --single-run --browsers PhantomJS,Firefox,Chrome"
+    "test": "./node_modules/.bin/karma start --single-run --browsers PhantomJS,Firefox,Chrome && ./node_modules/.bin/karma start --min --single-run --browsers PhantomJS,Firefox,Chrome",
+    "coverageTest": "karma start -c --single-run"
   },
   "author": "Florian Loch (florian.loch@gmail.com)",
   "license": "MIT"

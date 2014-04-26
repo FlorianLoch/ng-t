@@ -251,7 +251,10 @@ describe("This suite tests whether ng-t works or not", function () {
 				"sinn": ["$tProvider", function ($rootScope) {
 					$rootScope.sinn = "1337";
 					return (21 * 2).toString();
-				}]
+				}],
+				"sinn2": function ($tProvider) {
+					$tProvider.sinn2 = 42;
+				}
 			}
 		};
 
@@ -260,6 +263,8 @@ describe("This suite tests whether ng-t works or not", function () {
 
 		expect($tProvider.get("sinn")).toEqual("42");
 		expect($tProvider.sinn).toEqual("1337");
+		$tProvider.get("sinn2");
+		expect($tProvider.sinn2).toEqual(42);
 	});
 
 });
