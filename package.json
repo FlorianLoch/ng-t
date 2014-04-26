@@ -1,10 +1,10 @@
 {
   "name": "ng-t",
-  "version": "0.1.1",
+  "version": "0.1.0",
   "description": "AngularJS directive for inserting translateble texts",
   "main": "ng-t.js",
   "devDependencies": {
-    "karma": "~0.12.10",
+    "karma": "~0.10.9",
     "grunt-cli": "~0.1.13",
     "grunt": "~0.4.4",
     "grunt-contrib-uglify": "~0.4.0",
